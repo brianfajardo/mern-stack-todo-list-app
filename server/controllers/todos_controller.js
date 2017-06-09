@@ -11,7 +11,7 @@ module.exports = {
       )
       .catch((err) => {
         console.log('readTodos err:\n', err)
-        res.send({ error: 'An error occurred trying to fetch todos from database' }).status(500)
+        res.send({ error: 'Error occurred trying to fetch todos from database' }).status(500)
         next()
       })
   },
@@ -21,7 +21,7 @@ module.exports = {
       .then(todo => res.send(todo).status(201))
       .catch((err) => {
         console.log('createTodo err:\n', err)
-        res.send({ error: 'An error occurred trying to create todo' }).status(500)
+        res.send({ error: 'Error occurred trying to create todo' }).status(500)
         next()
       })
   },
@@ -34,7 +34,7 @@ module.exports = {
       .then(updatedTodo => res.send(updatedTodo).status(200))
       .catch((err) => {
         console.log('updateTodo err:\n', err)
-        res.send({ error: 'An error occurred trying to update todo' }).status(500)
+        res.send({ error: 'Error occurred trying to update todo' }).status(500)
         next()
       })
   },
@@ -44,7 +44,7 @@ module.exports = {
       .then(() => res.send({ message: 'Todo successfully removed' }).status(200))
       .catch((err) => {
         console.log('deleteTodo err:\n', err)
-        res.send({ error: 'An error occurred trying to remove todo' }).status(500)
+        res.send({ error: 'Error occurred trying to remove todo' }).status(500)
         next()
       })
   },
@@ -57,7 +57,7 @@ module.exports = {
       .then(toggledTodo => res.send(toggledTodo).status(200))
       .catch((err) => {
         console.log('toggleOne err:\n', err)
-        res.send({ error: 'An error occurred trying to toggle completed status of todo' }).status(500)
+        res.send({ error: 'Error occurred trying to toggle completed status of todo' }).status(500)
         next()
       })
   },
@@ -83,6 +83,17 @@ module.exports = {
         })
     })
 
+    const toggleAll = (mongoOperation) => {
+      mongoOperation
+        .then(results => res.send(results).status(400))
+        .catch((err) => {
+          console.log('toggleAll err:\n', err)
+          res.send({ error: 'Error occurred trying to toggle the completed status of all todos' })
+            .status(500)
+          next()
+        })
+    }
+
     Promise.all([countCompleted, countAll])
       .then((results) => {
         const totalCompleted = results[0]
@@ -95,28 +106,17 @@ module.exports = {
         switch (toggleAllFlag) {
           // If total completed < total todos ~> toggle all to true
           case true: {
-            Todo.updateMany({ completed: false }, { completed: true })
-              .then(results => res.send(results).status(400))
-              .catch((err) => {
-                console.log('toggleAll err:\n', err)
-                res.send({ error: 'An error occurred trying to toggle the completed status of all todos' }).status(500)
-                next()
-              })
+            toggleAll(Todo.updateMany({ completed: false }, { completed: true }))
             break
           }
           // If total completed === total todos ~> toggle all to false
           case false: {
-            Todo.updateMany({ completed: true }, { completed: false })
-              .then(results => res.send(results).status(400))
-              .catch((err) => {
-                console.log('toggleAll err:\n', err)
-                res.send({ error: 'An error occurred trying to toggle the completed status of all todos' }).status(500)
-                next()
-              })
+            toggleAll(Todo.updateMany({ completed: true }, { completed: false }))
             break
           }
+          // Unsure if a default case is needed when switching
+          // on a Boolean type since switch cases are predictable.
           default: {
-            // I'm not sure if a default case is needed when switching on Boolean types.
             console.log('toggleAll switch statement did not find a match case!')
             next()
           }
