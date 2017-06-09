@@ -46,5 +46,29 @@ module.exports = {
         res.send({ error: 'An error occurred trying to remove todo' }).status(500)
         next()
       })
+  },
+
+  toggleOne(req, res, next) {
+    const { _id, completed } = req.body
+    Todo.updateOne({ _id }, { completed: !completed })
+      .then(() => Todo.findById({ _id }))
+      .then(toggledTodo => res.send(toggledTodo).status(200))
+      .catch((err) => {
+        console.log('toggleOne err:\n', err)
+        res.send({ error: 'An error occurred trying to toggle completed status of todo' }).status(500)
+        next()
+      })
+  },
+
+  toggleAll(req, res, next) {
+    // if total completed < total todos ~> toggle all to true
+    // if total completed === total todos ~> toggle all to false
+    Todo.updateMany({ completed: false }, { completed: true })
+      .then(results => res.send(results).status(400))
+      .catch((err) => {
+        console.log('toggleAll err:\n', err)
+        res.send({ error: 'An error occurred trying to toggle the completed status of all todos' }).status(500)
+        next()
+      })
   }
 }
