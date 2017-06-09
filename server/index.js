@@ -5,7 +5,7 @@ const router = require('./router/')
 
 const app = express()
 
-// Replace Mongoose innate Promise with ES6 Promise
+// Replace Mongoose Bluebird Promise with ES6 Promise
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/todos')
 
@@ -19,4 +19,4 @@ app.use((err, req, res, next) => {
   next()
 })
 
-app.listen(8000, () => console.log('Listening on local host 8000'))
+app.listen(8000, () => console.log('Listening on localhost:8000'))
