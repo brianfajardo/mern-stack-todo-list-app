@@ -5,9 +5,9 @@ module.exports = {
   readTodos(req, res, next) {
     Todo.find()
       .then(todos =>
-        (todos.length === 0
+        todos.length === 0
           ? res.send({ message: 'Add some todos!' }).status(200)
-          : res.send(todos).status(200))
+          : res.send(todos).status(200)
       )
       .catch((err) => {
         console.log('readTodos err:\n', err)
@@ -28,6 +28,7 @@ module.exports = {
 
   updateTodo(req, res, next) {
     const { _id, todo } = req.body
+
     Todo.findByIdAndUpdate({ _id }, { todo })
       .then(() => Todo.findById({ _id }))
       .then(updatedTodo => res.send(updatedTodo).status(200))
@@ -50,6 +51,7 @@ module.exports = {
 
   toggleOne(req, res, next) {
     const { _id, completed } = req.body
+
     Todo.updateOne({ _id }, { completed: !completed })
       .then(() => Todo.findById({ _id }))
       .then(toggledTodo => res.send(toggledTodo).status(200))
@@ -61,14 +63,64 @@ module.exports = {
   },
 
   toggleAll(req, res, next) {
-    // if total completed < total todos ~> toggle all to true
-    // if total completed === total todos ~> toggle all to false
-    Todo.updateMany({ completed: false }, { completed: true })
-      .then(results => res.send(results).status(400))
-      .catch((err) => {
-        console.log('toggleAll err:\n', err)
-        res.send({ error: 'An error occurred trying to toggle the completed status of all todos' }).status(500)
-        next()
+    const countCompleted = new Promise((resolve, reject) => {
+      Todo.find({ completed: true })
+        .count()
+        .then(results => resolve(results))
+        .catch((err) => {
+          console.log('toggleAll -> countCompleted Promise err\n', err)
+          reject()
+        })
+    })
+
+    const countAll = new Promise((resolve, reject) => {
+      Todo.find()
+        .count()
+        .then(results => resolve(results))
+        .catch((err) => {
+          console.log('toggleAll -> countAll Promise err\n', err)
+          reject()
+        })
+    })
+
+    Promise.all([countCompleted, countAll])
+      .then((results) => {
+        const totalCompleted = results[0]
+        const totalTodos = results[1]
+        let toggleAllFlag
+        totalCompleted < totalTodos ? toggleAllFlag = true : toggleAllFlag = false
+        return toggleAllFlag
+      })
+      .then((toggleAllFlag) => {
+        switch (toggleAllFlag) {
+          // If total completed < total todos ~> toggle all to true
+          case true: {
+            Todo.updateMany({ completed: false }, { completed: true })
+              .then(results => res.send(results).status(400))
+              .catch((err) => {
+                console.log('toggleAll err:\n', err)
+                res.send({ error: 'An error occurred trying to toggle the completed status of all todos' }).status(500)
+                next()
+              })
+            break
+          }
+          // If total completed === total todos ~> toggle all to false
+          case false: {
+            Todo.updateMany({ completed: true }, { completed: false })
+              .then(results => res.send(results).status(400))
+              .catch((err) => {
+                console.log('toggleAll err:\n', err)
+                res.send({ error: 'An error occurred trying to toggle the completed status of all todos' }).status(500)
+                next()
+              })
+            break
+          }
+          default: {
+            // I'm not sure if a default case is needed when switching on Boolean types.
+            console.log('toggleAll switch statement did not find a match case!')
+            next()
+          }
+        }
       })
   }
 }
