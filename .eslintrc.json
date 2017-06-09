@@ -13,6 +13,7 @@
         "semi": 0,
         "eol-last": 0,
         "no-console": 0,
-        "comma-dangle": 0
+        "comma-dangle": 0,
+        "padded-blocks": 0
     }
 }

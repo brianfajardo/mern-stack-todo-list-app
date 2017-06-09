@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import App from './components/App'
+
 ReactDOM.render(
-  <h1>
-    It&apos;s alive muahahaha
-     <span role="img" aria-label="lightning">⚡️️</span>
-  </h1>,
+  <App />,
   document.getElementById('root')
 )
