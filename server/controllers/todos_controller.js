@@ -4,10 +4,14 @@ module.exports = {
 
   readTodos(req, res, next) {
     Todo.find()
-      .then(todos => res.send(todos).status(20))
+      .then(todos =>
+        (todos.length === 0
+          ? res.send({ message: 'Add some todos!' }).status(200)
+          : res.send(todos).status(200))
+      )
       .catch((err) => {
         console.log('readTodos err:\n', err)
-        res.send({ error: 'An error ocurred trying to fetch todos from database' }).status(500)
+        res.send({ error: 'An error occurred trying to fetch todos from database' }).status(500)
         next()
       })
   },
@@ -18,6 +22,28 @@ module.exports = {
       .catch((err) => {
         console.log('createTodo err:\n', err)
         res.send({ error: 'An error occurred trying to create todo' }).status(500)
+        next()
+      })
+  },
+
+  updateTodo(req, res, next) {
+    const { _id, todo } = req.body
+    Todo.findByIdAndUpdate({ _id }, { todo })
+      .then(() => Todo.findById({ _id }))
+      .then(updatedTodo => res.send(updatedTodo).status(200))
+      .catch((err) => {
+        console.log('updateTodo err:\n', err)
+        res.send({ error: 'An error occurred trying to update todo' }).status(500)
+        next()
+      })
+  },
+
+  deleteTodo(req, res, next) {
+    Todo.findByIdAndRemove({ _id: req.body._id })
+      .then(() => res.send({ message: 'Todo successfully removed' }).status(200))
+      .catch((err) => {
+        console.log('deleteTodo err:\n', err)
+        res.send({ error: 'An error occurred trying to remove todo' }).status(500)
         next()
       })
   }
