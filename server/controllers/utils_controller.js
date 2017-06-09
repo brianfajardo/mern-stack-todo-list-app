@@ -1,19 +1,19 @@
 const Todo = require('../models/todo_model')
 
-// Current implementation to toggle all todos between requires 3 touches to DB.
+// Current implementation to toggle all todos requires 3 touches to DB.
 // Reducing the number of touches should optimize speeds.
 
 module.exports = {
 
   toggleAll(req, res, next) {
-    const countCompleted = Todo.find({ completed: true }).count()
+    const totalCompleted = Todo.find({ completed: true }).count()
       .then(results => results)
 
-    const countAll = Todo.find().count()
+    const totalTodos = Todo.find().count()
       .then(results => results)
 
-    const doToggle = (mongoOperation) => {
-      mongoOperation
+    const doToggle = (operation) => {
+      operation
         .then(results => res.send(results).status(400))
         .catch(() => {
           res.send({ error: 'Error occurred toggling all todos' }).status(500)
@@ -21,10 +21,9 @@ module.exports = {
         })
     }
 
-    Promise.all([countCompleted, countAll])
+    Promise.all([totalCompleted, totalTodos])
       .then((results) => {
-        let toggleAllFlag
-        results[0] < results[1] ? toggleAllFlag = true : toggleAllFlag = false
+        const toggleAllFlag = results[0] < results[1] ? 1 : 0
         return toggleAllFlag
       })
       .then(toggleAllFlag =>
