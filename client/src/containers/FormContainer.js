@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+// import * as actions from '../actions'
 
 class FormContainer extends Component {
 
@@ -14,7 +17,8 @@ class FormContainer extends Component {
   }
 
   onFormSubmit() {
-    this.props.addTodo(this.state.inputValue)
+    // inputValue.
+    // Action creator -> Server -> Mongo
   }
 
   render() {
@@ -31,4 +35,7 @@ class FormContainer extends Component {
   }
 }
 
+// const mapStateToProps = () => ({})
+
 export default FormContainer
+// export default connect(mapStateToProps, actions)(FormContainer)
