@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-// import * as actions from '../actions'
+import PropTypes from 'prop-types'
+import { addTodo } from '../actions'
 
 class FormContainer extends Component {
 
@@ -16,9 +16,9 @@ class FormContainer extends Component {
     this.setState({ inputValue: e.target.value })
   }
 
-  onFormSubmit() {
-    // inputValue.
-    // Action creator -> Server -> Mongo
+  onFormSubmit(e) {
+    e.preventDefault()
+    this.props.addTodo(this.state.inputValue)
   }
 
   render() {
@@ -35,7 +35,8 @@ class FormContainer extends Component {
   }
 }
 
-// const mapStateToProps = () => ({})
+FormContainer.propTypes = {
+  addTodo: PropTypes.func.isRequired
+}
 
-export default FormContainer
-// export default connect(mapStateToProps, actions)(FormContainer)
+export default connect(null, { addTodo })(FormContainer)

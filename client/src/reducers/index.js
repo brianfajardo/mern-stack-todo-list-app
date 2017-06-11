@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
+import todos from './todos_reducer'
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  todos
 })
 
 export default rootReducer
