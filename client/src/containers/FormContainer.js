@@ -19,6 +19,7 @@ class FormContainer extends Component {
   onFormSubmit(e) {
     e.preventDefault()
     this.props.addTodo(this.state.inputValue)
+    this.setState({ inputValue: '' })
   }
 
   render() {
