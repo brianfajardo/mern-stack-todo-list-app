@@ -4,10 +4,12 @@ import PropTypes from 'prop-types'
 
 class ListContainer extends Component {
   render() {
-    const { todos } = this.props
-    console.log(todos)
     return (
-      <div>hey</div>
+      <ul>
+        {this.props.todos.map(todo => (
+          <li key={todo._id}>{todo.todo}</li>
+        ))}
+      </ul>
     )
   }
 }
@@ -17,7 +19,7 @@ const mapStateToProps = state => ({
 })
 
 ListContainer.propTypes = {
-  todos: PropTypes.object
+  todos: PropTypes.array.isRequired
 }
 
 export default connect(mapStateToProps)(ListContainer)

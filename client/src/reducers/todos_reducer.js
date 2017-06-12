@@ -1,10 +1,12 @@
 import { ADD_TODO } from '../constants/actionTypes'
 
-export default (state = {}, action) => {
+const todosReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
-      return { ...state, todos: action.payload }
+      return [...state, action.payload.data]
     default:
       return state
   }
 }
+
+export default todosReducer
