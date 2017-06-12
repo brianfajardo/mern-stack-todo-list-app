@@ -6,10 +6,7 @@ import List from '../components/List'
 
 class ListContainer extends Component {
   render() {
-    console.log(this.props.todos)
-    return (
-      <List todos={this.props.todos} />
-    )
+    return <List todos={this.props.todos} />
   }
 }
 
