@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const router = require('./router/')
 
@@ -10,6 +11,7 @@ mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost/todos')
 
 // Middleware
+app.use(cors())
 app.use(bodyParser.json())
 router(app)
 
