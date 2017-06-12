@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import List from '../components/List'
+
 class ListContainer extends Component {
   render() {
+    console.log(this.props.todos)
     return (
-      <ul>
-        {this.props.todos.map(todo => (
-          <li key={todo._id}>{todo.todo}</li>
-        ))}
-      </ul>
+      <List todos={this.props.todos} />
     )
   }
 }
@@ -19,7 +18,11 @@ const mapStateToProps = state => ({
 })
 
 ListContainer.propTypes = {
-  todos: PropTypes.array.isRequired
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    todo: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    _id: PropTypes.string.isRequired
+  })).isRequired
 }
 
 export default connect(mapStateToProps)(ListContainer)
