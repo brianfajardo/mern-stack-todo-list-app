@@ -1,12 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Button from './Button'
+import ListItem from './ListItem'
+
 const List = ({ todos }) => (
-  <ul>
-    {todos.map(todo => (
-      <li key={todo._id}>{todo.todo}</li>
-    ))}
-  </ul>
+  <div>
+    <ul>
+      {todos.map(todo => <ListItem key={todo._id} todo={todo} />)}
+    </ul>
+    <Button>Toggle All</Button>
+    <Button>Clear Completed</Button>
+  </div>
 )
 
 List.propTypes = {
