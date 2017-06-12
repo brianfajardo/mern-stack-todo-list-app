@@ -1,15 +1,31 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { fetchTodos } from '../actions/'
 
 import Header from './Header'
 import FormContainer from '../containers/FormContainer'
 import ListContainer from '../containers/ListContainer'
 
-const App = () => (
-  <div>
-    <Header />
-    <FormContainer />
-    <ListContainer />
-  </div>
-)
+class App extends Component {
 
-export default App
+  componentWillMount() {
+    this.props.fetchTodos()
+  }
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <FormContainer />
+        <ListContainer />
+      </div>
+    )
+  }
+}
+
+App.propTypes = {
+  fetchTodos: PropTypes.func.isRequired
+}
+
+export default connect(null, { fetchTodos })(App)
