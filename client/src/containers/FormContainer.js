@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { addTodo } from '../actions'
 
+import UserForm from '../components/UserForm'
+
 class FormContainer extends Component {
 
   constructor() {
@@ -24,14 +26,11 @@ class FormContainer extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <input
-          type="text"
-          value={this.state.inputValue}
-          onChange={this.onInputChange}
-        />
-        <button type="submit">Add</button>
-      </form>
+      <UserForm
+        inputValue={this.state.inputValue}
+        onInputChange={this.onInputChange}
+        onFormSubmit={this.onFormSubmit}
+      />
     )
   }
 }
