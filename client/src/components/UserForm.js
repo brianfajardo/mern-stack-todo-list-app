@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Button from './Button'
+
 const UserForm = ({ inputValue, onInputChange, onFormSubmit }) => (
   <form onSubmit={onFormSubmit}>
     <input
@@ -8,7 +10,7 @@ const UserForm = ({ inputValue, onInputChange, onFormSubmit }) => (
       value={inputValue}
       onChange={onInputChange}
     />
-    <button type="submit">Add</button>
+    <Button type={'submit'}>Add</Button>
   </form>
 )
 
