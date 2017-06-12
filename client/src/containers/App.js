@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { fetchTodos } from '../actions/'
 
-import Header from './Header'
-import FormContainer from '../containers/FormContainer'
-import ListContainer from '../containers/ListContainer'
+import Header from '../components/Header'
+import FormContainer from './FormContainer'
+import ListContainer from './ListContainer'
 
 class App extends Component {
 
