@@ -20,8 +20,10 @@ class FormContainer extends Component {
 
   onFormSubmit(e) {
     e.preventDefault()
-    this.props.addTodo(this.state.inputValue)
-    this.setState({ inputValue: '' })
+    if (this.state.inputValue.length > 0) {
+      this.props.addTodo(this.state.inputValue)
+      this.setState({ inputValue: '' })
+    }
   }
 
   render() {
