@@ -5,7 +5,11 @@ const { Schema } = mongoose
 const TodoSchema = new Schema({
   todo: {
     type: String,
-    required: true
+    required: true,
+    validate: {
+      validator: todo => todo.length > 0,
+      message: 'Todo must be enetered'
+    }
   },
   completed: {
     type: Boolean,
