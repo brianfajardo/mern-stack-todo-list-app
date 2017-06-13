@@ -1,4 +1,8 @@
-import { ADD_TODO, FETCH_TODOS } from '../constants/actionTypes'
+import {
+  FETCH_TODOS,
+  ADD_TODO,
+  DELETE_TODO
+} from '../constants/actionTypes'
 
 const todosReducer = (state = [], action) => {
   switch (action.type) {
@@ -6,6 +10,8 @@ const todosReducer = (state = [], action) => {
       return [...state, ...action.payload.data]
     case ADD_TODO:
       return [...state, action.payload.data]
+    case DELETE_TODO:
+      return state.filter(todo => todo._id !== action.payload)
     default:
       return state
   }

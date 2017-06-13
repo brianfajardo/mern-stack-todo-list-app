@@ -10,7 +10,7 @@ const UserForm = ({ inputValue, onInputChange, onFormSubmit }) => (
       value={inputValue}
       onChange={onInputChange}
     />
-    <Button type={'submit'}>Add</Button>
+    <Button type={'submit'} text={'add'} />
   </form>
 )
 

@@ -35,7 +35,7 @@ module.exports = {
     Todo.findByIdAndRemove({ _id: req.body._id })
       .then(() => res.send({ message: 'Todo successfully removed' }).status(200))
       .catch(() => {
-        res.send({ error: 'Todo not be removed' }).status(500)
+        res.send({ error: 'Todo not removed' }).status(500)
         next()
       })
   }
