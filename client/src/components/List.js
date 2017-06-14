@@ -21,7 +21,7 @@ class List extends Component {
   render() {
     return (
       <div>
-        <ul>{this.renderListItem()}</ul>
+        <ul>{this.props.todos && this.renderListItem()}</ul>
         <Button text={'Toggle All'} />
         <Button text={'Clear Completed'} />
       </div>
@@ -30,11 +30,11 @@ class List extends Component {
 }
 
 List.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({
-    todo: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
-    _id: PropTypes.string.isRequired
-  })).isRequired,
+  // todos: PropTypes.arrayOf(PropTypes.shape({
+  //   todo: PropTypes.string.isRequired,
+  //   completed: PropTypes.bool.isRequired,
+  //   _id: PropTypes.string.isRequired
+  // })).isRequired,
   onButtonRemove: PropTypes.func.isRequired,
   onTodoClick: PropTypes.func.isRequired
 }

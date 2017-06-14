@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware } from 'redux'
-import promiseMiddleware from 'redux-promise'
+import reduxThunk from 'redux-thunk'
 
 import rootReducer from '../reducers'
 
-const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(createStore)
+const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore)
 
 const configureStore = initialState => createStoreWithMiddleware(rootReducer, initialState)
 

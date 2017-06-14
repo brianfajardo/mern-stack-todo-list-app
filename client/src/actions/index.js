@@ -8,14 +8,21 @@ import {
 
 const URL = 'http://localhost:8000/todos'
 
-export const fetchTodos = () => {
-  const request = axios.get(URL)
-  return { type: FETCH_TODOS, payload: request }
+export const fetchTodos = () => (dispatch) => {
+  axios.get(URL)
+    .then((res) => {
+      const todos = res.data
+      dispatch({ type: FETCH_TODOS, payload: todos })
+    })
 }
 
-export const addTodo = (todo) => {
-  const request = axios.post(`${URL}/create`, { todo })
-  return { type: ADD_TODO, payload: request }
+export const addTodo = todo => (dispatch) => {
+  axios.post(`${URL}/create`, { todo })
+    .then((res) => {
+      const todo = res.data
+      // dispatch({ type: ADD_TODO, payload: todo })
+      console.log('adding todo')
+    })
 }
 
 export const toggleTodo = ({ _id, todo, completed }) => {

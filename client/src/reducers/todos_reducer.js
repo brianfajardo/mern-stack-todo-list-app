@@ -5,12 +5,16 @@ import {
   TOGGLE_TODO
 } from '../constants/actionTypes'
 
-const todosReducer = (state = [], action) => {
+const initialState = {
+  todos: []
+}
+
+const todosReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TODOS:
-      return [...state, ...action.payload.data]
+      return { ...state, todos: action.payload }
     case ADD_TODO:
-      return [...state, action.payload.data]
+      return { ...state, todos: action.payload }
     case TOGGLE_TODO:
       console.log('TOGGLE TODO REDUCER:', action.payload)
       break

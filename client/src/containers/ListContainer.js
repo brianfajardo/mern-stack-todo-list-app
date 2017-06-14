@@ -13,6 +13,10 @@ class ListContainer extends Component {
     this.onButtonRemove = this.onButtonRemove.bind(this)
   }
 
+  componentWillUpdate() {
+    this.props.fetchTodos()
+  }
+
   onTodoClick(todo) {
     this.props.toggleTodo(todo)
   }
@@ -22,7 +26,6 @@ class ListContainer extends Component {
   }
 
   render() {
-    console.log('ListContainer todos:', this.props.todos)
     return (
       <List
         todos={this.props.todos}
@@ -33,14 +36,16 @@ class ListContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ todos }) => ({ todos })
+const mapStateToProps = state => ({
+  todos: state.todoList.todos
+})
 
 ListContainer.propTypes = {
-  todos: PropTypes.arrayOf(PropTypes.shape({
-    todo: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
-    _id: PropTypes.string.isRequired
-  })).isRequired,
+  // todos: PropTypes.arrayOf(PropTypes.shape({
+  //   todo: PropTypes.string.isRequired,
+  //   completed: PropTypes.bool.isRequired,
+  //   _id: PropTypes.string.isRequired
+  // })).isRequired,
   deleteTodo: PropTypes.func.isRequired,
   toggleTodo: PropTypes.func.isRequired
 }
