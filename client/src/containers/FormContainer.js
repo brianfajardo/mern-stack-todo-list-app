@@ -18,9 +18,11 @@ class FormContainer extends Component {
   }
 
   onFormSubmit(e) {
+    const { inputValue, addTodo } = this.props
     e.preventDefault()
-    if (this.props.inputValue.length > 0) {
-      this.props.addTodo(this.props.inputValue)
+    // Prevent empty input spam
+    if (inputValue.length > 0) {
+      addTodo(this.props.inputValue)
     }
   }
 
