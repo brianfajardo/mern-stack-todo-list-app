@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import * as actions from '../actions'
 
+import * as actions from '../actions'
 import UserForm from '../components/UserForm'
 
 class FormContainer extends Component {
@@ -40,6 +40,8 @@ const mapStateToProps = state => ({
 })
 
 FormContainer.propTypes = {
+  inputValue: PropTypes.string.isRequired,
+  setInputText: PropTypes.func.isRequired,
   addTodo: PropTypes.func.isRequired
 }
 

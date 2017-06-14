@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import * as actions from '../actions/'
 
+import * as actions from '../actions/'
 import List from '../components/List'
 
 class ListContainer extends Component {
@@ -41,11 +41,12 @@ const mapStateToProps = state => ({
 })
 
 ListContainer.propTypes = {
-  // todos: PropTypes.arrayOf(PropTypes.shape({
-  //   todo: PropTypes.string.isRequired,
-  //   completed: PropTypes.bool.isRequired,
-  //   _id: PropTypes.string.isRequired
-  // })).isRequired,
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    todo: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    _id: PropTypes.string.isRequired
+  })).isRequired,
+  fetchTodos: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
   toggleTodo: PropTypes.func.isRequired
 }

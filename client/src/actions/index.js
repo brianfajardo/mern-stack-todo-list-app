@@ -26,8 +26,10 @@ export const addTodo = todo => (dispatch) => {
 
 export const toggleTodo = ({ _id, todo, completed }) => {
   axios.put(`${URL}/update`, { _id, todo, completed: !completed })
+  // dispatch...
 }
 
 export const deleteTodo = (id) => {
   axios.delete(`${URL}/delete`, { data: { _id: id } })
+  // dispatch...
 }

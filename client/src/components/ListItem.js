@@ -14,11 +14,11 @@ const ListItem = ({ todo, onButtonRemove, onTodoClick }) => (
 )
 
 ListItem.propTypes = {
-  // todo: PropTypes.shape({
-  //   todo: PropTypes.string.isRequired,
-  //   completed: PropTypes.bool.isRequired,
-  //   _id: PropTypes.string.isRequired
-  // }).isRequired,
+  todo: PropTypes.shape({
+    todo: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    _id: PropTypes.string.isRequired
+  }).isRequired,
   onButtonRemove: PropTypes.func.isRequired,
   onTodoClick: PropTypes.func.isRequired
 }
