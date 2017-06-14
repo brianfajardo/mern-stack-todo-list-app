@@ -14,7 +14,7 @@ module.exports = {
 
     const doToggle = (operation) => {
       operation
-        .then(results => res.send(results).status(400))
+        .then(() => res.send({ message: 'All todos completed prop toggled' }).status(400))
         .catch(() => {
           res.send({ error: 'Error occurred toggling all todos' }).status(500)
           next()

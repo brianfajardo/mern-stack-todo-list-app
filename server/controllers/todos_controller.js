@@ -23,8 +23,7 @@ module.exports = {
   updateTodo(req, res, next) {
     const { _id, todo, completed } = req.body
     Todo.findByIdAndUpdate({ _id }, { todo, completed })
-      .then(() => Todo.findById({ _id }))
-      .then(updatedTodo => res.send(updatedTodo).status(200))
+      .then(() => res.send({ message: 'Todo updated' }).status(200))
       .catch(() => {
         res.send({ error: 'Updates not applied to todo' }).status(500)
         next()
