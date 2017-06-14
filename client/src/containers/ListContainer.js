@@ -9,26 +9,31 @@ class ListContainer extends Component {
 
   constructor() {
     super()
-    this.onClickRemove = this.onClickRemove.bind(this)
+    this.onTodoClick = this.onTodoClick.bind(this)
+    this.onButtonRemove = this.onButtonRemove.bind(this)
   }
 
-  onClickRemove(id) {
+  onTodoClick(todo) {
+    this.props.toggleTodo(todo)
+  }
+
+  onButtonRemove(id) {
     this.props.deleteTodo(id)
   }
 
   render() {
+    console.log('ListContainer todos:', this.props.todos)
     return (
       <List
         todos={this.props.todos}
-        onClickRemove={this.onClickRemove}
+        onTodoClick={this.onTodoClick}
+        onButtonRemove={this.onButtonRemove}
       />
     )
   }
 }
 
-const mapStateToProps = state => ({
-  todos: state.todos
-})
+const mapStateToProps = ({ todos }) => ({ todos })
 
 ListContainer.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
@@ -36,7 +41,8 @@ ListContainer.propTypes = {
     completed: PropTypes.bool.isRequired,
     _id: PropTypes.string.isRequired
   })).isRequired,
-  deleteTodo: PropTypes.func.isRequired
+  deleteTodo: PropTypes.func.isRequired,
+  toggleTodo: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, actions)(ListContainer)

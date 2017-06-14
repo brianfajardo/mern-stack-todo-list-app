@@ -1,18 +1,33 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from './Button'
 import ListItem from './ListItem'
 
-const List = ({ todos, onClickRemove }) => (
-  <div>
-    <ul>
-      {todos.map(todo => <ListItem key={todo._id} todo={todo} onClickRemove={onClickRemove} />)}
-    </ul>
-    <Button text={'Toggle All'} />
-    <Button text={'Clear Completed'} />
-  </div>
-)
+class List extends Component {
+
+  renderListItem() {
+    const { todos, onButtonRemove, onTodoClick } = this.props
+    return todos.map(todo => (
+      <ListItem
+        key={todo._id}
+        todo={todo}
+        onTodoClick={onTodoClick}
+        onButtonRemove={onButtonRemove}
+      />
+    ))
+  }
+
+  render() {
+    return (
+      <div>
+        <ul>{this.renderListItem()}</ul>
+        <Button text={'Toggle All'} />
+        <Button text={'Clear Completed'} />
+      </div>
+    )
+  }
+}
 
 List.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
@@ -20,7 +35,8 @@ List.propTypes = {
     completed: PropTypes.bool.isRequired,
     _id: PropTypes.string.isRequired
   })).isRequired,
-  onClickRemove: PropTypes.func.isRequired
+  onButtonRemove: PropTypes.func.isRequired,
+  onTodoClick: PropTypes.func.isRequired
 }
 
 export default List

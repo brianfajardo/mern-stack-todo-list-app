@@ -2,7 +2,8 @@ import axios from 'axios'
 import {
   ADD_TODO,
   FETCH_TODOS,
-  DELETE_TODO
+  DELETE_TODO,
+  TOGGLE_TODO
 } from '../constants/actionTypes'
 
 const URL = 'http://localhost:8000/todos'
@@ -15,6 +16,11 @@ export const fetchTodos = () => {
 export const addTodo = (todo) => {
   const request = axios.post(`${URL}/create`, { todo })
   return { type: ADD_TODO, payload: request }
+}
+
+export const toggleTodo = ({ _id, todo, completed }) => {
+  axios.put(`${URL}/update`, { _id, todo, completed: !completed })
+  return { type: TOGGLE_TODO, payload: _id }
 }
 
 export const deleteTodo = (id) => {
