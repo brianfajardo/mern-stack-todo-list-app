@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {
+  INPUT_VALUE,
   ADD_TODO,
   FETCH_TODOS,
   DELETE_TODO,
@@ -7,6 +8,10 @@ import {
 } from '../constants/actionTypes'
 
 const URL = 'http://localhost:8000/todos'
+
+export const setInputText = text => (dispatch) => {
+  dispatch({ type: INPUT_VALUE, payload: text })
+}
 
 export const fetchTodos = () => (dispatch) => {
   axios.get(URL)

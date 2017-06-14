@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { addTodo } from '../actions'
+import * as actions from '../actions'
 
 import UserForm from '../components/UserForm'
 
@@ -9,27 +9,25 @@ class FormContainer extends Component {
 
   constructor() {
     super()
-    this.state = { inputValue: '' }
     this.onInputChange = this.onInputChange.bind(this)
     this.onFormSubmit = this.onFormSubmit.bind(this)
   }
 
   onInputChange(e) {
-    this.setState({ inputValue: e.target.value })
+    this.props.setInputText(e.target.value)
   }
 
   onFormSubmit(e) {
     e.preventDefault()
-    if (this.state.inputValue.length > 0) {
-      this.props.addTodo(this.state.inputValue)
-      this.setState({ inputValue: '' })
+    if (this.props.inputValue.length > 0) {
+      this.props.addTodo(this.props.inputValue)
     }
   }
 
   render() {
     return (
       <UserForm
-        inputValue={this.state.inputValue}
+        inputValue={this.props.inputValue}
         onInputChange={this.onInputChange}
         onFormSubmit={this.onFormSubmit}
       />
@@ -37,8 +35,12 @@ class FormContainer extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  inputValue: state.todoList.inputValue
+})
+
 FormContainer.propTypes = {
   addTodo: PropTypes.func.isRequired
 }
 
-export default connect(null, { addTodo })(FormContainer)
+export default connect(mapStateToProps, actions)(FormContainer)
