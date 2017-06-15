@@ -3,8 +3,7 @@ import reduxThunk from 'redux-thunk'
 
 import rootReducer from '../reducers'
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore)
-
-const configureStore = initialState => createStoreWithMiddleware(rootReducer, initialState)
+const middleware = applyMiddleware(reduxThunk)
+const configureStore = initialState => createStore(rootReducer, initialState, middleware)
 
 export default configureStore

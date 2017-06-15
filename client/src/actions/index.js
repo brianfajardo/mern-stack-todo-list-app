@@ -1,15 +1,15 @@
 import axios from 'axios'
 import {
-  INPUT_VALUE,
   ADD_TODO,
-  FETCH_TODOS
+  FETCH_TODOS,
+  INPUT_VALUE,
+  DELETE_TODO,
+  TOGGLE_TODO
 } from '../constants/actionTypes'
 
 const URL = 'http://localhost:8000/todos'
 
-export const setInputText = text => (dispatch) => {
-  dispatch({ type: INPUT_VALUE, payload: text })
-}
+export const setInputText = text => ({ type: INPUT_VALUE, payload: text })
 
 export const fetchTodos = () => (dispatch) => {
   axios.get(URL)
@@ -21,15 +21,18 @@ export const fetchTodos = () => (dispatch) => {
 
 export const addTodo = todo => (dispatch) => {
   axios.post(`${URL}/create`, { todo })
-    .then(() => dispatch({ type: ADD_TODO }))
+    .then((res) => {
+      const newTodo = res.data
+      dispatch({ type: ADD_TODO, payload: newTodo })
+    })
 }
 
-export const toggleTodo = ({ _id, todo, completed }) => {
+export const toggleTodo = ({ _id, todo, completed }) => (dispatch) => {
   axios.put(`${URL}/update`, { _id, todo, completed: !completed })
-  // dispatch...
+    .then(dispatch({ type: TOGGLE_TODO, payload: _id }))
 }
 
-export const deleteTodo = (id) => {
+export const deleteTodo = id => (dispatch) => {
   axios.delete(`${URL}/delete`, { data: { _id: id } })
-  // dispatch...
+    .then(dispatch({ type: DELETE_TODO, payload: id }))
 }

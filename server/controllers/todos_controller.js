@@ -23,7 +23,7 @@ module.exports = {
   updateTodo(req, res, next) {
     const { _id, todo, completed } = req.body
     Todo.findByIdAndUpdate({ _id }, { todo, completed })
-      .then(() => res.send({ message: 'Todo updated' }).status(200))
+      .then(updatedTodo => res.send(updatedTodo).status(200))
       .catch(() => {
         res.send({ error: 'Updates not applied to todo' }).status(500)
         next()
@@ -32,10 +32,46 @@ module.exports = {
 
   deleteTodo(req, res, next) {
     Todo.findByIdAndRemove({ _id: req.body._id })
-      .then(() => res.send({ message: 'Todo successfully removed' }).status(200))
+      .then(res.send({ message: 'Todo successfully removed' }).status(200))
       .catch(() => {
         res.send({ error: 'Todo not removed' }).status(500)
         next()
+      })
+  },
+
+  toggleAll(req, res, next) {
+    const countCompleted = Todo.find({ completed: true })
+      .count()
+      .then(results => results)
+
+    const countTodos = Todo.find()
+      .count()
+      .then(results => results)
+
+    const doToggle = (operation) => {
+      operation
+        .then(res.send({ message: 'All todos completed prop toggled' }).status(400))
+        .catch(() => {
+          res.send({ error: 'Error occurred toggling all todos' }).status(500)
+          next()
+        })
+    }
+
+    Promise.all([countCompleted, countTodos])
+      .then((results) => {
+        const totalCompleted = results[0]
+        const totalTodos = results[1]
+        const toggleAllFlag = totalCompleted < totalTodos ? 1 : 0
+        return toggleAllFlag
+      })
+      .then((toggleAllFlag) => {
+        if (toggleAllFlag) {
+          // If total completed < total todos, toggle all to true.
+          doToggle(Todo.updateMany({ completed: false }, { completed: true }))
+        } else {
+          // If total completed === total todos, toggle all to false.
+          doToggle(Todo.updateMany({ completed: true }, { completed: false }))
+        }
       })
   }
 }

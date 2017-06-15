@@ -1,7 +1,9 @@
 import {
   INPUT_VALUE,
   FETCH_TODOS,
-  ADD_TODO
+  ADD_TODO,
+  DELETE_TODO,
+  TOGGLE_TODO
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -16,7 +18,17 @@ const todosReducer = (state = initialState, action) => {
     case FETCH_TODOS:
       return { ...state, todos: action.payload }
     case ADD_TODO:
-      return { ...state, inputValue: '' }
+      return { inputValue: '', todos: [...state.todos, action.payload] }
+    case DELETE_TODO:
+      {
+        const updatedState = state.todos.filter(todo => todo._id !== action.payload)
+        return { ...state, todos: [...updatedState] }
+      }
+    case TOGGLE_TODO:
+      {
+        console.log('TOGGLE TODO --->', action)
+        return state
+      }
     default:
       return state
   }

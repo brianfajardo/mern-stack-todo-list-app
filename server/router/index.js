@@ -2,14 +2,16 @@ const {
   readTodos,
   createTodo,
   updateTodo,
-  deleteTodo
+  deleteTodo,
+  toggleAll
  } = require('../controllers/todos_controller')
-const { toggleAll } = require('../controllers/utils_controller')
 
-module.exports = (app) => {
+const router = (app) => {
   app.get('/todos', readTodos)
   app.post('/todos/create', createTodo)
   app.put('/todos/update', updateTodo)
   app.put('/todos/update/toggleall', toggleAll)
   app.delete('/todos/delete', deleteTodo)
 }
+
+module.exports = router
