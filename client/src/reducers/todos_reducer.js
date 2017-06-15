@@ -2,9 +2,10 @@ import {
   INPUT_VALUE,
   FETCH_TODOS,
   ADD_TODO,
+  TOGGLE_TODO,
+  TOGGLE_ALL,
   DELETE_TODO,
-  // TOGGLE_TODO,
-  TOGGLE_ALL
+  DELETE_COMPLETED
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -20,13 +21,25 @@ const todosReducer = (state = initialState, action) => {
       return { ...state, todos: action.payload }
     case ADD_TODO:
       return { inputValue: '', todos: [...state.todos, action.payload] }
-    case DELETE_TODO:
+    case TOGGLE_TODO:
       {
-        const updatedTodos = state.todos.filter(todo => todo._id !== action.payload)
-        return { ...state, todos: [...updatedTodos] }
+        const updatedState = state.todos.map(todo =>
+          (todo._id === action.payload._id) ? { ...todo, completed: !todo.completed } : todo
+        )
+        return { ...state, todos: [...updatedState] }
       }
     case TOGGLE_ALL:
       return { ...state, todos: [...action.payload] }
+    case DELETE_TODO:
+      {
+        const updatedState = state.todos.filter(todo => todo._id !== action.payload)
+        return { ...state, todos: [...updatedState] }
+      }
+    case DELETE_COMPLETED:
+      {
+        const updatedState = state.todos.filter(todo => todo.completed === false)
+        return { ...state, todos: [...updatedState] }
+      }
     default:
       return state
   }

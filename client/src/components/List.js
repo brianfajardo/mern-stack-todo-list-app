@@ -7,18 +7,23 @@ import ListItem from './ListItem'
 class List extends Component {
 
   renderListItem() {
-    const { todos, deleteTodo } = this.props
+    const { todos, toggleTodo, deleteTodo } = this.props
     return todos.map(todo => (
       <ListItem
         key={todo._id}
         individualTodo={todo}
+        toggleTodo={toggleTodo}
         deleteTodo={deleteTodo}
       />
     ))
   }
 
   render() {
-    const { todos, toggleAll } = this.props
+    const {
+      todos,
+      toggleAll,
+      deleteCompleted
+    } = this.props
     return (
       <div>
         <ul>
@@ -26,7 +31,7 @@ class List extends Component {
           {todos && this.renderListItem()}
         </ul>
         <Button text={'Toggle All'} onClick={toggleAll} />
-        <Button text={'Clear Completed'} />
+        <Button text={'Clear Completed'} onClick={deleteCompleted} />
       </div>
     )
   }
@@ -38,8 +43,10 @@ List.propTypes = {
     completed: PropTypes.bool.isRequired,
     _id: PropTypes.string.isRequired
   })).isRequired,
+  toggleTodo: PropTypes.func.isRequired,
+  toggleAll: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  toggleAll: PropTypes.func.isRequired
+  deleteCompleted: PropTypes.func.isRequired
 }
 
 export default List

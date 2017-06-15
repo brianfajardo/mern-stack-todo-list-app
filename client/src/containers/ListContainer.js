@@ -8,12 +8,20 @@ import List from '../components/List'
 class ListContainer extends Component {
 
   render() {
-    const { todos, deleteTodo, toggleAll } = this.props
+    const {
+      todos,
+      toggleTodo,
+      toggleAll,
+      deleteTodo,
+      deleteCompleted
+    } = this.props
     return (
       <List
         todos={todos}
-        deleteTodo={deleteTodo}
+        toggleTodo={toggleTodo}
         toggleAll={toggleAll}
+        deleteTodo={deleteTodo}
+        deleteCompleted={deleteCompleted}
       />
     )
   }
@@ -29,8 +37,10 @@ ListContainer.propTypes = {
     completed: PropTypes.bool.isRequired,
     _id: PropTypes.string.isRequired
   })).isRequired,
+  toggleTodo: PropTypes.func.isRequired,
+  toggleAll: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  toggleAll: PropTypes.func.isRequired
+  deleteCompleted: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, actions)(ListContainer)

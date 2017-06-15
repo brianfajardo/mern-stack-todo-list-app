@@ -39,6 +39,15 @@ module.exports = {
       })
   },
 
+  deleteCompleted(req, res, next) {
+    Todo.remove({ completed: true })
+      .then(res.send({ message: 'Completed todos removed' }).status(200))
+      .catch(() => {
+        res.send({ error: 'Completed todos not removed' }.status(500))
+        next()
+      })
+  },
+
   toggleAll(req, res, next) {
     const countCompleted = Todo.find({ completed: true })
       .count()

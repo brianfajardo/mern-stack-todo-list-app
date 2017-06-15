@@ -1,11 +1,12 @@
 import axios from 'axios'
 import {
-  ADD_TODO,
-  FETCH_TODOS,
   INPUT_VALUE,
+  FETCH_TODOS,
+  ADD_TODO,
+  TOGGLE_TODO,
+  TOGGLE_ALL,
   DELETE_TODO,
-  TOGGLE_ONE,
-  TOGGLE_ALL
+  DELETE_COMPLETED
 } from '../constants/actionTypes'
 
 const URL = 'http://localhost:8000/todos'
@@ -28,8 +29,16 @@ export const addTodo = todo => (dispatch) => {
     })
 }
 
+export const toggleTodo = todo => (dispatch) => {
+  axios.put(`${URL}/update`, { ...todo, completed: !todo.completed })
+    .then((res) => {
+      const updatedTodo = res.data
+      dispatch({ type: TOGGLE_TODO, payload: updatedTodo })
+    })
+}
+
 export const toggleAll = () => (dispatch) => {
-  axios.put(`${URL}/update/toggleall`)
+  axios.put(`${URL}/update/all`)
     .then((res) => {
       const updatedTodos = res.data
       dispatch({ type: TOGGLE_ALL, payload: updatedTodos })
@@ -39,4 +48,9 @@ export const toggleAll = () => (dispatch) => {
 export const deleteTodo = id => (dispatch) => {
   axios.delete(`${URL}/delete`, { data: { _id: id } })
     .then(dispatch({ type: DELETE_TODO, payload: id }))
+}
+
+export const deleteCompleted = () => (dispatch) => {
+  axios.delete(`${URL}/delete/completed`)
+    .then(dispatch({ type: DELETE_COMPLETED }))
 }

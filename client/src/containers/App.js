@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { fetchTodos } from '../actions/'
 
+import { fetchTodos } from '../actions/'
 import Header from '../components/Header'
 import FormContainer from './FormContainer'
 import ListContainer from './ListContainer'
