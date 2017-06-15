@@ -30,7 +30,7 @@ class List extends Component {
           {/* Todos array check. Trying to .map() undefined ~> typeError */}
           {todos && this.renderListItem()}
         </ul>
-        <Button text={'Toggle All'} onClick={toggleAll} />
+        {todos.length > 0 && <Button text={'Toggle All'} onClick={toggleAll} />}
         <Button text={'Clear Completed'} onClick={deleteCompleted} />
       </div>
     )
