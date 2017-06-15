@@ -22,12 +22,13 @@ class ListContainer extends Component {
   }
 
   render() {
-    console.log('ListContainer todos:', this.props.todos)
+    console.log('ListContainer todos --->', this.props.todos)
     return (
       <List
         todos={this.props.todos}
         onTodoClick={this.onTodoClick}
         onButtonRemove={this.onButtonRemove}
+        toggleAll={this.props.toggleAll}
       />
     )
   }
@@ -44,7 +45,8 @@ ListContainer.propTypes = {
     _id: PropTypes.string.isRequired
   })).isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  toggleTodo: PropTypes.func.isRequired
+  toggleTodo: PropTypes.func.isRequired,
+  toggleAll: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, actions)(ListContainer)

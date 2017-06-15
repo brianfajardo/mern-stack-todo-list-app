@@ -4,7 +4,8 @@ import {
   FETCH_TODOS,
   INPUT_VALUE,
   DELETE_TODO,
-  TOGGLE_TODO
+  // TOGGLE_TODO,
+  TOGGLE_ALL
 } from '../constants/actionTypes'
 
 const URL = 'http://localhost:8000/todos'
@@ -27,9 +28,12 @@ export const addTodo = todo => (dispatch) => {
     })
 }
 
-export const toggleTodo = ({ _id, todo, completed }) => (dispatch) => {
-  axios.put(`${URL}/update`, { _id, todo, completed: !completed })
-    .then(dispatch({ type: TOGGLE_TODO, payload: _id }))
+export const toggleAll = () => (dispatch) => {
+  axios.put(`${URL}/update/toggleall`)
+    .then((res) => {
+      const updatedTodos = res.data
+      dispatch({ type: TOGGLE_ALL, payload: updatedTodos })
+    })
 }
 
 export const deleteTodo = id => (dispatch) => {

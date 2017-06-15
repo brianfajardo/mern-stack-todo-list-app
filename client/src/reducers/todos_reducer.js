@@ -3,7 +3,8 @@ import {
   FETCH_TODOS,
   ADD_TODO,
   DELETE_TODO,
-  TOGGLE_TODO
+  // TOGGLE_TODO,
+  TOGGLE_ALL
 } from '../constants/actionTypes'
 
 const initialState = {
@@ -21,14 +22,11 @@ const todosReducer = (state = initialState, action) => {
       return { inputValue: '', todos: [...state.todos, action.payload] }
     case DELETE_TODO:
       {
-        const updatedState = state.todos.filter(todo => todo._id !== action.payload)
-        return { ...state, todos: [...updatedState] }
+        const updatedTodos = state.todos.filter(todo => todo._id !== action.payload)
+        return { ...state, todos: [...updatedTodos] }
       }
-    case TOGGLE_TODO:
-      {
-        console.log('TOGGLE TODO --->', action)
-        return state
-      }
+    case TOGGLE_ALL:
+      return { ...state, todos: [...action.payload] }
     default:
       return state
   }

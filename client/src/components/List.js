@@ -25,7 +25,7 @@ class List extends Component {
           {/* Todos array check. Trying to .map() undefined ~> typeError */}
           {this.props.todos && this.renderListItem()}
         </ul>
-        <Button text={'Toggle All'} />
+        <Button text={'Toggle All'} onClick={() => this.props.toggleAll()} />
         <Button text={'Clear Completed'} />
       </div>
     )
@@ -39,7 +39,8 @@ List.propTypes = {
     _id: PropTypes.string.isRequired
   })).isRequired,
   onButtonRemove: PropTypes.func.isRequired,
-  onTodoClick: PropTypes.func.isRequired
+  onTodoClick: PropTypes.func.isRequired,
+  toggleAll: PropTypes.func.isRequired
 }
 
 export default List
