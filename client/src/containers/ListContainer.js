@@ -7,27 +7,12 @@ import List from '../components/List'
 
 class ListContainer extends Component {
 
-  constructor() {
-    super()
-    this.onTodoClick = this.onTodoClick.bind(this)
-    this.onButtonRemove = this.onButtonRemove.bind(this)
-  }
-
-  onTodoClick(todo) {
-    this.props.toggleTodo(todo)
-  }
-
-  onButtonRemove(id) {
-    this.props.deleteTodo(id)
-  }
-
   render() {
     console.log('ListContainer todos --->', this.props.todos)
     return (
       <List
         todos={this.props.todos}
-        onTodoClick={this.onTodoClick}
-        onButtonRemove={this.onButtonRemove}
+        deleteTodo={this.props.deleteTodo}
         toggleAll={this.props.toggleAll}
       />
     )
@@ -45,7 +30,6 @@ ListContainer.propTypes = {
     _id: PropTypes.string.isRequired
   })).isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  toggleTodo: PropTypes.func.isRequired,
   toggleAll: PropTypes.func.isRequired
 }
 

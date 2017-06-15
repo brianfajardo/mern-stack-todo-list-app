@@ -7,13 +7,12 @@ import ListItem from './ListItem'
 class List extends Component {
 
   renderListItem() {
-    const { todos, onButtonRemove, onTodoClick } = this.props
+    const { todos, deleteTodo } = this.props
     return todos.map(todo => (
       <ListItem
         key={todo._id}
         todo={todo}
-        onTodoClick={onTodoClick}
-        onButtonRemove={onButtonRemove}
+        deleteTodo={deleteTodo}
       />
     ))
   }
@@ -38,8 +37,7 @@ List.propTypes = {
     completed: PropTypes.bool.isRequired,
     _id: PropTypes.string.isRequired
   })).isRequired,
-  onButtonRemove: PropTypes.func.isRequired,
-  onTodoClick: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
   toggleAll: PropTypes.func.isRequired
 }
 

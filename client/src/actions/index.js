@@ -4,7 +4,7 @@ import {
   FETCH_TODOS,
   INPUT_VALUE,
   DELETE_TODO,
-  // TOGGLE_TODO,
+  TOGGLE_ONE,
   TOGGLE_ALL
 } from '../constants/actionTypes'
 
