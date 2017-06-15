@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 import Button from './Button'
 
-const UserForm = ({ inputValue, onInputChange, onFormSubmit }) => (
+const UserForm = ({ inputValue, setInputText, onFormSubmit }) => (
   <form onSubmit={onFormSubmit}>
     <input
       type="text"
       value={inputValue}
-      onChange={onInputChange}
+      onChange={e => setInputText(e.target.value)}
     />
     <Button type={'submit'} text={'add'} />
   </form>
@@ -16,7 +16,7 @@ const UserForm = ({ inputValue, onInputChange, onFormSubmit }) => (
 
 UserForm.propTypes = {
   inputValue: PropTypes.string,
-  onInputChange: PropTypes.func.isRequired,
+  setInputText: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired
 }
 

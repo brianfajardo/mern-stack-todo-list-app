@@ -11,20 +11,21 @@ class List extends Component {
     return todos.map(todo => (
       <ListItem
         key={todo._id}
-        todo={todo}
+        individualTodo={todo}
         deleteTodo={deleteTodo}
       />
     ))
   }
 
   render() {
+    const { todos, toggleAll } = this.props
     return (
       <div>
         <ul>
           {/* Todos array check. Trying to .map() undefined ~> typeError */}
-          {this.props.todos && this.renderListItem()}
+          {todos && this.renderListItem()}
         </ul>
-        <Button text={'Toggle All'} onClick={() => this.props.toggleAll()} />
+        <Button text={'Toggle All'} onClick={toggleAll} />
         <Button text={'Clear Completed'} />
       </div>
     )

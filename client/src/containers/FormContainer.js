@@ -9,12 +9,7 @@ class FormContainer extends Component {
 
   constructor() {
     super()
-    this.onInputChange = this.onInputChange.bind(this)
     this.onFormSubmit = this.onFormSubmit.bind(this)
-  }
-
-  onInputChange(e) {
-    this.props.setInputText(e.target.value)
   }
 
   onFormSubmit(e) {
@@ -27,10 +22,11 @@ class FormContainer extends Component {
   }
 
   render() {
+    const { inputValue, setInputText } = this.props
     return (
       <UserForm
-        inputValue={this.props.inputValue}
-        onInputChange={this.onInputChange}
+        inputValue={inputValue}
+        setInputText={setInputText}
         onFormSubmit={this.onFormSubmit}
       />
     )

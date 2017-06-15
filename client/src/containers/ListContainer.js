@@ -8,12 +8,12 @@ import List from '../components/List'
 class ListContainer extends Component {
 
   render() {
-    console.log('ListContainer todos --->', this.props.todos)
+    const { todos, deleteTodo, toggleAll } = this.props
     return (
       <List
-        todos={this.props.todos}
-        deleteTodo={this.props.deleteTodo}
-        toggleAll={this.props.toggleAll}
+        todos={todos}
+        deleteTodo={deleteTodo}
+        toggleAll={toggleAll}
       />
     )
   }
