@@ -3,7 +3,7 @@ import React from 'react'
 const Header = () => (
   <div>
     <h1>Todos</h1>
-    <p>Click on todo to complete task</p>
+    <p>Double click todo to mark as complete</p>
   </div>
 )
 

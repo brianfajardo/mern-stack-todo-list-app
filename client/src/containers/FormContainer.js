@@ -15,9 +15,9 @@ class FormContainer extends Component {
   onFormSubmit(e) {
     const { inputValue, addTodo } = this.props
     e.preventDefault()
-    // Prevent empty input spam
+    // Empty input check
     if (inputValue.length > 0) {
-      addTodo(this.props.inputValue)
+      addTodo(inputValue)
     }
   }
 
@@ -33,8 +33,8 @@ class FormContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  inputValue: state.todoList.inputValue
+const mapStateToProps = ({ todoList }) => ({
+  inputValue: todoList.inputValue
 })
 
 FormContainer.propTypes = {

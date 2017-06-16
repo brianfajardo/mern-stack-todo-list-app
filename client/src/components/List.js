@@ -7,11 +7,15 @@ import ListItem from './ListItem'
 class List extends Component {
 
   renderListItem() {
-    const { todos, toggleTodo, deleteTodo } = this.props
+    const {
+      todos,
+      toggleTodo,
+      deleteTodo
+     } = this.props
     return todos.map(todo => (
       <ListItem
         key={todo._id}
-        individualTodo={todo}
+        todoObj={todo}
         toggleTodo={toggleTodo}
         deleteTodo={deleteTodo}
       />
@@ -22,16 +26,16 @@ class List extends Component {
     const {
       todos,
       toggleAll,
-      deleteCompleted
+      deleteCompleted,
+      completedCount
     } = this.props
     return (
       <div>
         <ul>
-          {/* Todos array check. Trying to .map() undefined ~> typeError */}
           {todos && this.renderListItem()}
         </ul>
         {todos.length > 0 && <Button text={'Toggle All'} onClick={toggleAll} />}
-        <Button text={'Clear Completed'} onClick={deleteCompleted} />
+        {completedCount > 0 && <Button text={'Clear Completed'} onClick={deleteCompleted} />}
       </div>
     )
   }
@@ -46,7 +50,8 @@ List.propTypes = {
   toggleTodo: PropTypes.func.isRequired,
   toggleAll: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  deleteCompleted: PropTypes.func.isRequired
+  deleteCompleted: PropTypes.func.isRequired,
+  completedCount: PropTypes.number.isRequired
 }
 
 export default List

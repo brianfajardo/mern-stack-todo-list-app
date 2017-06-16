@@ -3,21 +3,26 @@ import PropTypes from 'prop-types'
 
 import Button from './Button'
 
-const ListItem = ({ individualTodo, toggleTodo, deleteTodo }) => {
-  const { _id, todo, completed } = individualTodo
+const ListItem = (props) => {
+  const {
+    todoObj,
+    todoObj: { todo, completed },
+    toggleTodo,
+    deleteTodo
+   } = props
   return (
     <li
-      onClick={() => toggleTodo(individualTodo)}
+      onDoubleClick={() => toggleTodo(todoObj)}
       style={{ textDecoration: completed ? 'line-through' : 'none' }}
     >
       {todo}
-      <Button text={'x'} onClick={() => deleteTodo(_id)} />
+      <Button text={'x'} onClick={() => deleteTodo(todoObj)} />
     </li >
   )
 }
 
 ListItem.propTypes = {
-  individualTodo: PropTypes.shape({
+  todoObj: PropTypes.shape({
     todo: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
     _id: PropTypes.string.isRequired

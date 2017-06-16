@@ -13,7 +13,8 @@ class ListContainer extends Component {
       toggleTodo,
       toggleAll,
       deleteTodo,
-      deleteCompleted
+      deleteCompleted,
+      completedCount
     } = this.props
     return (
       <List
@@ -22,13 +23,15 @@ class ListContainer extends Component {
         toggleAll={toggleAll}
         deleteTodo={deleteTodo}
         deleteCompleted={deleteCompleted}
+        completedCount={completedCount}
       />
     )
   }
 }
 
-const mapStateToProps = state => ({
-  todos: state.todoList.todos
+const mapStateToProps = ({ todoList }) => ({
+  todos: todoList.todos,
+  completedCount: todoList.completedCount
 })
 
 ListContainer.propTypes = {
@@ -40,7 +43,8 @@ ListContainer.propTypes = {
   toggleTodo: PropTypes.func.isRequired,
   toggleAll: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
-  deleteCompleted: PropTypes.func.isRequired
+  deleteCompleted: PropTypes.func.isRequired,
+  completedCount: PropTypes.number.isRequired
 }
 
 export default connect(mapStateToProps, actions)(ListContainer)
