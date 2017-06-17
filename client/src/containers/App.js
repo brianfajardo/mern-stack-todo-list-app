@@ -14,9 +14,10 @@ class App extends Component {
   }
 
   render() {
+    const { todos, remainingTodos } = this.props
     return (
       <div>
-        <Header />
+        <Header todos={todos} remainingTodos={remainingTodos} />
         <FormContainer />
         <ListContainer />
       </div>
@@ -24,8 +25,14 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  const { todoList: { todos, completedCount } } = state
+  const remainingTodos = (todos.length - completedCount)
+  return { todos, remainingTodos }
+}
+
 App.propTypes = {
   fetchTodos: PropTypes.func.isRequired
 }
 
-export default connect(null, { fetchTodos })(App)
+export default connect(mapStateToProps, { fetchTodos })(App)
