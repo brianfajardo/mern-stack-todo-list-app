@@ -32,7 +32,9 @@ const mapStateToProps = (state) => {
 }
 
 App.propTypes = {
-  fetchTodos: PropTypes.func.isRequired
+  fetchTodos: PropTypes.func.isRequired,
+  todos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  remainingTodos: PropTypes.number.isRequired
 }
 
 export default connect(mapStateToProps, { fetchTodos })(App)

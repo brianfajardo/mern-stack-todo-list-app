@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Header = (props) => {
   const { todos, remainingTodos } = props
@@ -14,6 +15,11 @@ const Header = (props) => {
       }
     </div>
   )
+}
+
+Header.propTypes = {
+  todos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  remainingTodos: PropTypes.number.isRequired
 }
 
 export default Header
