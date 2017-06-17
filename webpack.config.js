@@ -10,8 +10,8 @@ module.exports = {
     vendors: VENDOR_LIST
   },
   output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhase].js'
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
