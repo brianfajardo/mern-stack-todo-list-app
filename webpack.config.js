@@ -6,7 +6,7 @@ const VENDOR_LIST = ['axios', 'body-parser', 'cors', 'express', 'mongoose', 'pro
 
 module.exports = {
   entry: {
-    dist: './client/src/index.js',
+    bundle: './client/src/index.js',
     vendors: VENDOR_LIST
   },
   output: {
@@ -29,5 +29,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './client/index.html'
     })
-  ]
+  ],
+  target: 'node' // Fix for webpack build not finding server modules.
 }
