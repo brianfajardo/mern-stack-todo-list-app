@@ -38,4 +38,6 @@ app.use((err, req, res, next) => {
   next()
 })
 
-app.listen(8000, () => console.log('Listening on localhost:8000'))
+app.listen(process.env.PORT || 8000, () => {
+  console.log(`Listening on ${process.env.PORT || 'localhost:8000'}`)
+})
