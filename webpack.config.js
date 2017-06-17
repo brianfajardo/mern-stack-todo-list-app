@@ -30,5 +30,5 @@ module.exports = {
       template: './client/index.html'
     })
   ],
-  target: 'node' // Fix for webpack build not finding server modules.
+  target: 'node'
 }

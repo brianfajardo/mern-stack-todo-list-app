@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client": "webpack-dev-server",
-    "server": "nodemon --exec node ./server/index.js",
+    "server": "nodemon --exec node ./server/app.js",
     "clean": "rimraf dist",
     "build": "npm run clean && webpack -p"
   },
@@ -27,6 +27,7 @@
     "nodemon": "^1.11.0",
     "rimraf": "^2.6.1",
     "webpack": "^2.6.1",
+    "webpack-dev-middleware": "^1.10.2",
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
