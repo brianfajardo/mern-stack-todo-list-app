@@ -8,7 +8,7 @@ const TodoSchema = new Schema({
     required: true,
     validate: {
       validator: todo => todo.length > 0,
-      message: 'Todo must be enetered'
+      message: 'Todo must be entered'
     }
   },
   completed: {

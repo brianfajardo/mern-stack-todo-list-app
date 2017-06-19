@@ -2,16 +2,25 @@ const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const VENDOR_LIST = ['axios', 'body-parser', 'cors', 'express', 'mongoose', 'prop-types', 'react', 'react-dom', 'redux', 'react-redux', 'redux-thunk']
+// Only front-end libraries here, since it is what
+// the server will send to the browser (bundle.js).
+const BROWSER_VENDORS = [
+  'react',
+  'react-dom',
+  'redux',
+  'redux-thunk',
+  'react-redux',
+  'axios'
+]
 
 module.exports = {
   entry: {
     bundle: './client/src/index.js',
-    vendors: VENDOR_LIST
+    vendors: BROWSER_VENDORS
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -23,12 +32,11 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendors', 'manifest']
-    }),
     new HtmlWebpackPlugin({
       template: './client/index.html'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['vendors']
     })
-  ],
-  target: 'node'
+  ]
 }

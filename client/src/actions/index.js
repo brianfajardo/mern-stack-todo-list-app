@@ -38,7 +38,8 @@ export const toggleTodo = todo => (dispatch) => {
     .then((res) => {
       const updatedTodo = res.data
       dispatch({ type: TOGGLE_TODO, payload: updatedTodo })
-      dispatch({ type:
+      dispatch({
+        type:
         (updatedTodo.completed ? DECREMENT_COMPLETED_COUNT : INCREMENT_COMPLETED_COUNT)
       })
     })
@@ -59,6 +60,7 @@ export const deleteTodo = todo => (dispatch) => {
   axios.delete(`${URL}/delete`, { data: { _id } })
     .then(() => {
       dispatch({ type: DELETE_TODO, payload: _id })
+      // If deleted todo was completed (=== true), decrease completed count
       if (completed) { dispatch({ type: DECREMENT_COMPLETED_COUNT }) }
     })
 }
