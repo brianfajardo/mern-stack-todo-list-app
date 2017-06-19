@@ -4,15 +4,14 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
 const router = require('./router/')
+const URI = require('../mLabConfig')
 
 const app = express()
 
-const URI = 'mongodb://bfajardo15:password15@ds131742.mlab.com:31742/mern-todolist'
 // Replace Mongoose Bluebird Promise with ES6 Promise
 mongoose.Promise = global.Promise
 mongoose.connect(URI) // Production
 // mongoose.connect('mongodb://localhost/todos') // Development
-
 
 // Middleware
 app.use(cors())
