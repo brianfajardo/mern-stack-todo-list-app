@@ -23,11 +23,11 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackMiddleware(webpack(webpackConfig)))
 } else {
   // Allow Express to serve 'dist' directory freely to any request.
-  app.use(express.static(path.resolve(__dirname, '/../dist')))
+  app.use(express.static(path.resolve(__dirname, 'dist')))
 
   // On GET request to any route ('*') of server, send index.html file.
   app.get('*', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, '/../dist/index.html'))
+    res.sendFile(path.resolve(__dirname, 'dist/index.html'))
     next()
   })
 }
