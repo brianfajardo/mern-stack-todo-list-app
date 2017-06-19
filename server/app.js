@@ -7,9 +7,12 @@ const router = require('./router/')
 
 const app = express()
 
+const URI = 'mongodb://bfajardo15:password15@ds131742.mlab.com:31742/mern-todolist'
 // Replace Mongoose Bluebird Promise with ES6 Promise
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/todos')
+mongoose.connect(URI) // Production
+// mongoose.connect('mongodb://localhost/todos') // Development
+
 
 // Middleware
 app.use(cors())
