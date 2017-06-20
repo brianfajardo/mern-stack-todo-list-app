@@ -4,14 +4,20 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
 const router = require('./router/')
-const URI = require('../mLabConfig')
 
 const app = express()
 
 // Replace Mongoose Bluebird Promise with ES6 Promise
 mongoose.Promise = global.Promise
-mongoose.connect(URI) // Production
-// mongoose.connect('mongodb://localhost/todos') // Development
+
+if (process.env.NODE_ENV !== 'production') {
+  // Development. Using localhost mongoDB
+  mongoose.connect('mongodb://localhost/todos')
+} else {
+  // Production. mLab.
+  const URI = require('../mLabConfig')
+  mongoose.connect(URI)
+}
 
 // Middleware
 app.use(cors())
