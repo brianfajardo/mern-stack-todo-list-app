@@ -1,5 +1,5 @@
 // Express server
-export const URL = 'https://localhost:42768/'
+export const URL = 'https://mernstack-todos.herokuapp.com/'
 
 // User input
 export const INPUT_VALUE = 'INPUT_VALUE'
