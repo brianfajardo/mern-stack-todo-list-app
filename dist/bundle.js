@@ -792,11 +792,13 @@ var fetchTodos = exports.fetchTodos = function fetchTodos() {
   return function (dispatch) {
     _axios2.default.get(_actionTypes.URL).then(function (res) {
       var todos = res.data;
-      var completedCount = todos.filter(function (todo) {
-        return todo.completed;
-      }).length;
+      if (todos) {
+        var completedCount = todos.filter(function (todo) {
+          return todo.completed;
+        }).length;
+        dispatch({ type: _actionTypes.COMPLETED_COUNT, payload: completedCount });
+      }
       dispatch({ type: _actionTypes.FETCH_TODOS, payload: todos });
-      dispatch({ type: _actionTypes.COMPLETED_COUNT, payload: completedCount });
     });
   };
 };
