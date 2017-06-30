@@ -1,5 +1,5 @@
 // Express dev server
-export const URL = 'https://protected-fortress-91379.herokuapp.com/'
+export const URL = 'https://mernstack-todos.herokuapp.com'
 
 // User input
 export const INPUT_VALUE = 'INPUT_VALUE'
