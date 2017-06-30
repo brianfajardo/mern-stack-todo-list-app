@@ -4,6 +4,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
 const router = require('./router/')
+const MLAB_URI = require('../mLabConfig')
 
 const app = express()
 
@@ -15,8 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
   mongoose.connect('mongodb://localhost/todos')
 } else {
   // Production. mLab.
-  const URI = require('../mLabConfig')
-  mongoose.connect(URI)
+  mongoose.connect(MLAB_URI, { useMongoClient: true }, () => console.log('mLab connection established'))
 }
 
 // Middleware
