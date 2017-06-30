@@ -1,5 +1,5 @@
 // Express dev server
-export const URL = 'http://localhost:8000/todos'
+export const URL = 'https://protected-fortress-91379.herokuapp.com/'
 
 // User input
 export const INPUT_VALUE = 'INPUT_VALUE'
