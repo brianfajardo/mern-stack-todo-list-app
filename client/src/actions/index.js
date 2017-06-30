@@ -19,9 +19,11 @@ export const fetchTodos = () => (dispatch) => {
   axios.get(URL)
     .then((res) => {
       const todos = res.data
-      const completedCount = todos.filter(todo => todo.completed).length
+      if (todos) {
+        const completedCount = todos.filter(todo => todo.completed).length
+        dispatch({ type: COMPLETED_COUNT, payload: completedCount })
+      }
       dispatch({ type: FETCH_TODOS, payload: todos })
-      dispatch({ type: COMPLETED_COUNT, payload: completedCount })
     })
 }
 
