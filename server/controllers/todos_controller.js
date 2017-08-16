@@ -3,7 +3,7 @@ const Todo = require('../models/todo_model')
 module.exports = {
 
   readTodos(req, res, next) {
-    Todo.find()
+    Todo.find({})
       .then(todos => res.send(todos).status(200))
       .catch(() => {
         res.send({ error: 'Unable to retrieve todos from database' }).status(500)
