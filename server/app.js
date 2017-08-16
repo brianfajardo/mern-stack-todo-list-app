@@ -6,6 +6,7 @@ const path = require('path')
 const router = require('./router/')
 
 const app = express()
+const PORT = process.env.PORT || '8000'
 
 // Replace Mongoose Bluebird Promise with ES6 Promise
 mongoose.Promise = global.Promise
@@ -14,9 +15,8 @@ if (process.env.NODE_ENV !== 'production') {
   // Development. Using localhost mongoDB
   mongoose.connect('mongodb://localhost/todos')
 } else {
-  // Production. mLab.
-  const MLAB_URI = require('../mLabConfig')
-  mongoose.connect(MLAB_URI, { useMongoClient: true }, () => console.log('mLab connection established'))
+  // Production. MLAB_URI set in Heroku environment variables.
+  mongoose.connect(process.env.MLAB_URI, () => console.log('mLab connection established'))
 }
 
 // Middleware
@@ -31,12 +31,9 @@ if (process.env.NODE_ENV !== 'production') {
   app.use(webpackMiddleware(webpack(webpackConfig)))
 } else {
   // Allow Express to serve 'dist' directory freely to any request.
-  app.use(express.static(path.join(__dirname, '../dist')))
-
+  app.use(express.static('../dist'))
   // On GET request to any route ('*') of server, send index.html file.
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../dist/index.html'))
-  })
+  app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')))
 }
 
 // Fall through errors in trace
@@ -45,6 +42,4 @@ app.use((err, req, res, next) => {
   next()
 })
 
-app.listen(process.env.PORT || 8000, () => {
-  console.log(`Listening on ${process.env.PORT || 'localhost:8000'}`)
-})
+app.listen(PORT, () => console.log(`Listening on ${PORT}`))
