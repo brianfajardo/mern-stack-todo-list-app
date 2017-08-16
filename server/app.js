@@ -22,7 +22,6 @@ if (process.env.NODE_ENV !== 'production') {
 // Middleware
 app.use(cors())
 app.use(bodyParser.json())
-router(app)
 
 if (process.env.NODE_ENV !== 'production') {
   const webpack = require('webpack')
@@ -35,6 +34,8 @@ if (process.env.NODE_ENV !== 'production') {
   // On GET request to any route ('*') of server, send index.html file.
   app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../dist/index.html')))
 }
+
+router(app)
 
 // Fall through errors in trace
 app.use((err, req, res, next) => {

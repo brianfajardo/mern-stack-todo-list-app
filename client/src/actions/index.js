@@ -13,7 +13,7 @@ import {
 } from '../constants/actionTypes'
 
 // const DEV_URL = 'http://localhost:8000/todos'
-const PROD_URL = 'https://mernstack-todos.herokuapp.com'
+const PROD_URL = 'https://mernstack-todos.herokuapp.com/todos'
 
 export const setInputText = text => ({ type: INPUT_VALUE, payload: text })
 

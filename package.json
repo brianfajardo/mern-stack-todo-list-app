@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Simple todo list built with the MERN stack",
   "main": "index.js",
+  "engines": {
+    "node": "8.3.0",
+    "npm": "5.3.0"
+  },
   "scripts": {
     "client": "webpack-dev-server",
     "server": "nodemon --exec node ./server/app.js",
