@@ -9,7 +9,7 @@ import ListContainer from './ListContainer'
 
 class App extends Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchTodos()
   }
 

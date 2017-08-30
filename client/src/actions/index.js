@@ -12,13 +12,12 @@ import {
   DECREMENT_COMPLETED_COUNT
 } from '../constants/actionTypes'
 
-// const DEV_URL = 'http://localhost:8000/todos'
-const PROD_URL = 'https://mernstack-todos.herokuapp.com/todos'
+const URL = 'https://mernstack-todos.herokuapp.com/api/todos'
 
 export const setInputText = text => ({ type: INPUT_VALUE, payload: text })
 
 export const fetchTodos = () => (dispatch) => {
-  axios.get(PROD_URL)
+  axios.get(URL)
     .then((res) => {
       const todos = res.data
       const completedCount = todos.filter(todo => todo.completed).length
@@ -28,7 +27,7 @@ export const fetchTodos = () => (dispatch) => {
 }
 
 export const addTodo = todo => (dispatch) => {
-  axios.post(`${PROD_URL}/create`, { todo })
+  axios.post(`${URL}/create`, { todo })
     .then((res) => {
       const newTodo = res.data
       dispatch({ type: ADD_TODO, payload: newTodo })
@@ -36,7 +35,7 @@ export const addTodo = todo => (dispatch) => {
 }
 
 export const toggleTodo = todo => (dispatch) => {
-  axios.put(`${PROD_URL}/update`, { ...todo, completed: !todo.completed })
+  axios.put(`${URL}/update`, { ...todo, completed: !todo.completed })
     .then((res) => {
       const updatedTodo = res.data
       dispatch({ type: TOGGLE_TODO, payload: updatedTodo })
@@ -48,7 +47,7 @@ export const toggleTodo = todo => (dispatch) => {
 }
 
 export const toggleAll = () => (dispatch) => {
-  axios.put(`${PROD_URL}/update/all`)
+  axios.put(`${URL}/update/all`)
     .then((res) => {
       const updatedTodos = res.data
       const completedCount = updatedTodos.filter(todo => todo.completed).length
@@ -59,7 +58,7 @@ export const toggleAll = () => (dispatch) => {
 
 export const deleteTodo = todo => (dispatch) => {
   const { _id, completed } = todo
-  axios.delete(`${PROD_URL}/delete`, { data: { _id } })
+  axios.delete(`${URL}/delete`, { data: { _id } })
     .then(() => {
       dispatch({ type: DELETE_TODO, payload: _id })
       // If deleted todo was completed (=== true), decrease completed count
@@ -68,7 +67,7 @@ export const deleteTodo = todo => (dispatch) => {
 }
 
 export const deleteCompleted = () => (dispatch) => {
-  axios.delete(`${PROD_URL}/delete/completed`)
+  axios.delete(`${URL}/delete/completed`)
     .then(() => {
       dispatch({ type: DELETE_COMPLETED })
       dispatch({ type: COMPLETED_COUNT, payload: 0 })

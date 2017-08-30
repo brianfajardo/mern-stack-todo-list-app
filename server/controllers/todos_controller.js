@@ -2,53 +2,48 @@ const Todo = require('../models/todo_model')
 
 module.exports = {
 
-  readTodos(req, res, next) {
-    Todo.find({})
+  readTodos(req, res) {
+    Todo.find()
       .then(todos => res.send(todos).status(200))
       .catch(() => {
         res.send({ error: 'Unable to retrieve todos from database' }).status(500)
-        next()
       })
   },
 
-  createTodo(req, res, next) {
+  createTodo(req, res) {
     Todo.create(req.body)
       .then(todo => res.send(todo).status(201))
       .catch(() => {
         res.send({ error: 'Todo unsuccessfully created' }).status(500)
-        next()
       })
   },
 
-  updateTodo(req, res, next) {
+  updateTodo(req, res) {
     const { _id, todo, completed } = req.body
     Todo.findByIdAndUpdate({ _id }, { todo, completed })
       .then(updatedTodo => res.send(updatedTodo).status(200))
       .catch(() => {
         res.send({ error: 'Updates not applied to todo' }).status(500)
-        next()
       })
   },
 
-  deleteTodo(req, res, next) {
+  deleteTodo(req, res) {
     Todo.findByIdAndRemove({ _id: req.body._id })
       .then(res.send({ message: 'Todo successfully removed' }).status(200))
       .catch(() => {
         res.send({ error: 'Todo not removed' }).status(500)
-        next()
       })
   },
 
-  deleteCompleted(req, res, next) {
+  deleteCompleted(req, res) {
     Todo.remove({ completed: true })
       .then(res.send({ message: 'Completed todos removed' }).status(200))
       .catch(() => {
         res.send({ error: 'Completed todos not removed' }.status(500))
-        next()
       })
   },
 
-  toggleAll(req, res, next) {
+  toggleAll(req, res) {
     const countCompleted = Todo.find({ completed: true })
       .count()
       .then(results => results)
@@ -63,7 +58,6 @@ module.exports = {
         .then(updatedTodos => res.send(updatedTodos).status(200))
         .catch(() => {
           res.send({ error: 'Error occurred toggling all todos' }).status(500)
-          next()
         })
     }
 
