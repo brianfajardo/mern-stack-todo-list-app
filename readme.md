@@ -2,6 +2,8 @@
 
 I created this todo list as a way to test my current understanding of full stack web development. JavaScript is my bread and butter, so I decided to create this app in JS land, naturally turning to the MongoDB, Express, React and Node (MERN) combo.
 
+### 👌 Heroku demo: http://mernstack-todos.herokuapp.com/
+
 ## Features:
 - React, Redux, Webpack ❤️
   - Keeping application state in a single object tree
