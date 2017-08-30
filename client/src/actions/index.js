@@ -12,7 +12,7 @@ import {
   DECREMENT_COMPLETED_COUNT
 } from '../constants/actionTypes'
 
-const URL = 'https://mernstack-todos.herokuapp.com/api/todos'
+const URL = 'https://mernstack-todos.herokuapp.com/todos'
 
 export const setInputText = text => ({ type: INPUT_VALUE, payload: text })
 
