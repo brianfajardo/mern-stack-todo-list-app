@@ -6,9 +6,9 @@ import { fetchTodos } from '../actions/'
 import Header from '../components/Header'
 import FormContainer from './FormContainer'
 import ListContainer from './ListContainer'
+import { Container } from 'semantic-ui-react'
 
 class App extends Component {
-
   componentDidMount() {
     this.props.fetchTodos()
   }
@@ -16,25 +16,25 @@ class App extends Component {
   render() {
     const { todos, remainingTodos } = this.props
     return (
-      <div>
+      <Container textAlign="center">
         <Header todos={todos} remainingTodos={remainingTodos} />
         <FormContainer />
         <ListContainer />
-      </div>
+      </Container>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   const { todoList: { todos, completedCount } } = state
-  const remainingTodos = (todos.length - completedCount)
+  const remainingTodos = todos.length - completedCount
   return { todos, remainingTodos }
 }
 
 App.propTypes = {
   fetchTodos: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  remainingTodos: PropTypes.number.isRequired
+  remainingTodos: PropTypes.number.isRequired,
 }
 
 export default connect(mapStateToProps, { fetchTodos })(App)

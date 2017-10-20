@@ -6,7 +6,6 @@ import * as actions from '../actions'
 import UserForm from '../components/UserForm'
 
 class FormContainer extends Component {
-
   constructor() {
     super()
     this.onFormSubmit = this.onFormSubmit.bind(this)
@@ -34,13 +33,13 @@ class FormContainer extends Component {
 }
 
 const mapStateToProps = ({ todoList }) => ({
-  inputValue: todoList.inputValue
+  inputValue: todoList.inputValue,
 })
 
 FormContainer.propTypes = {
   inputValue: PropTypes.string.isRequired,
   setInputText: PropTypes.func.isRequired,
-  addTodo: PropTypes.func.isRequired
+  addTodo: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, actions)(FormContainer)

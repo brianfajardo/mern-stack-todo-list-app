@@ -1,23 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { List, Button, Divider } from 'semantic-ui-react'
 
-import Button from './Button'
+// import Button from './Button'
 
 const ListItem = (props) => {
-  const {
-    todoObj,
-    todoObj: { todo, completed },
-    toggleTodo,
-    deleteTodo
-   } = props
+  const { todoObj, todoObj: { todo, completed }, toggleTodo, deleteTodo } = props
   return (
-    <li
+    <List.Item
       onDoubleClick={() => toggleTodo(todoObj)}
-      style={{ textDecoration: completed ? 'line-through' : 'none' }}
+      style={{ textDecoration: completed ? 'line-through' : 'none', cursor: 'pointer' }}
     >
-      {todo}
-      <Button text={'x'} onClick={() => deleteTodo(todoObj)} />
-    </li >
+      <div>
+        {todo}
+        <Button
+          inverted
+          size="mini"
+          color="red"
+          onClick={() => deleteTodo(todoObj)}
+          style={{ float: 'right' }}
+        >
+          X
+        </Button>
+      </div>
+      <Divider />
+    </List.Item>
   )
 }
 
@@ -25,10 +32,10 @@ ListItem.propTypes = {
   todoObj: PropTypes.shape({
     todo: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
-    _id: PropTypes.string.isRequired
+    _id: PropTypes.string.isRequired,
   }).isRequired,
   toggleTodo: PropTypes.func.isRequired,
-  deleteTodo: PropTypes.func.isRequired
+  deleteTodo: PropTypes.func.isRequired,
 }
 
 export default ListItem
